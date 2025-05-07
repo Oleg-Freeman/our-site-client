@@ -1,0 +1,26 @@
+.countdown {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.countdown-header {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #a01a4f;
+    text-align: center;
+}
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+}
+.countdown-item span {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto;
+}
+.countdown-item h1 {
+    font-size: 1.7rem;
+    color: #a01a4f;
+    text-align: center;
+    margin-top: 0;
+}

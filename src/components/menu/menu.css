@@ -1,0 +1,14 @@
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #ff85c0;
+}
+.menu-item {
+    text-decoration: none;
+    /*color: #d6336c;*/
+    color: #fff;
+    font-weight: bold;
+}
