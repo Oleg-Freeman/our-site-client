@@ -6,8 +6,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  background:
+          radial-gradient(at 80% 80%,#ff44a1 25.4%,#0000 26%),
+          radial-gradient(at 20% 80%,#ff44a1 25.4%,#0000 26%),
+          conic-gradient(from -45deg at 50% 41%,#ff44a1 90deg,#ffebf4 0)
+          18px 0;
+  background-size: 36px 36px;
+
   /*Animated Background*/
-  background: #ffebf4;
+  /*background: #ffebf4;*/
   /*background-image: radial-gradient(4px 100px at 0px 235px, #ff44a1, #0000),*/
   /*radial-gradient(4px 100px at 300px 235px, #ff44a1, #0000),*/
   /*radial-gradient(1.5px 1.5px at 150px 117.5px, #ff44a1 100%, #0000 150%),*/

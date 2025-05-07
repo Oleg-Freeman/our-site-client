@@ -2,6 +2,16 @@
     display: flex;
     gap: 20px;
     justify-content: center;
+
+    @media (max-width: 768px) {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 .countdown-header {
     font-size: 2rem;
