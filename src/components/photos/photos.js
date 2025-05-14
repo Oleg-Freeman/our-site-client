@@ -1,5 +1,5 @@
 import './photos.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const photos = [];
 
@@ -17,6 +17,12 @@ export const Photos = () => {
     const prev = () => {
         setCurrentIndex((currentIndex - 1 + photos.length) % photos.length);
     };
+
+    useEffect(() => {
+        const timer = setInterval(() => next(), 10000);
+
+        return () => clearInterval(timer);
+    }, []);
 
     return (
         <>
