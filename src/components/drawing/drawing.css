@@ -1,0 +1,15 @@
+.drawing-container {
+    width: 800px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+        width: calc(100% - 150px);
+    }
+    @media (max-width: 768px) {
+        width: calc(100% - 50px);
+    }
+}
+.drawing-canvas {}

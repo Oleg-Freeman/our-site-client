@@ -1,12 +1,14 @@
 .wrapper {
     width: calc(100% - 300px);
-    margin: 0 auto;
     background: #ffffff;
+    border-radius: 20px;
+    min-height: 100vh;
+    margin: 0 auto 50px;
 
     @media (max-width: 1024px) {
         width: calc(100% - 150px);
     }
     @media (max-width: 768px) {
-        width: 100%;
+        width: calc(100% - 20px);
     }
 }

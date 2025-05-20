@@ -44,7 +44,7 @@ export const Countdown = () => {
 
     return (
         <div>
-            <h1 className="countdown-header">Час відколи тебе зустрів</h1>
+            <h1 className="header">Час відколи тебе зустрів</h1>
             {!timeData?.years ? (<Loader isLoading={true} />) : (
                 <div className="countdown">
                     <div className="countdown-item">

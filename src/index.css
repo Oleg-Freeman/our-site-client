@@ -105,6 +105,14 @@ code {
     monospace;
 }
 
+.header {
+    text-align: center;
+    font-weight: bold;
+    color: #a01a4f;
+    font-size: 2rem;
+    padding: 20px;
+}
+
 /*TODO: Poor Performance of Background Animation*/
 /*@keyframes hi {*/
 /*  0% {*/

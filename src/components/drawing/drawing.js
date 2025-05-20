@@ -9,8 +9,8 @@ const styles = {
 export const Drawing = () => {
     return (
         <div>
-            <h1 style={{ textAlign: 'center', color: '#a01a4f', fontSize: '2rem' }}>Намалюй мені</h1>
-            <div style={{ width: '60%', height: '600px', display: 'flex', justifyContent: 'center', margin: '0 auto' }}>
+            <h1 className="header">Намалюй мені</h1>
+            <div className="drawing-container">
                 <ReactSketchCanvas
                     style={styles}
                     // width="400"

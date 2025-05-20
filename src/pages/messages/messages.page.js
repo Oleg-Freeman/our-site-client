@@ -1,8 +1,12 @@
+import { Menu, Wrapper } from '../../components';
+
 export const MessagesPage = () => {
     return (
-        <div>
-            <h1>Messages Page</h1>
-            <p>This is the messages page of our application.</p>
-        </div>
+        <>
+            <Menu/>
+            <Wrapper>
+                <h1 style={{ padding: '20px', textAlign: 'center' }}>Тут можна буде переписуватися...</h1>
+            </Wrapper>
+        </>
     );
 }
