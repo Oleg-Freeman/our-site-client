@@ -58,18 +58,6 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Caption text */
-.caption {
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    padding: 8px 12px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-    color: #fff;
-}
-
 /* The dots indicator */
 .dots {
     display: flex;

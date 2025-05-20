@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Wrapper, Menu, Countdown, Photos } from '../../components';
+import { Wrapper, Menu, Countdown, Photos, Drawing } from '../../components';
 
 import './home.page.css'
 
@@ -14,13 +14,11 @@ export const HomePage = () => {
                 <Countdown/>
                 <Photos />
                 <section className="quote-section">
-                    <h2>Quote of the Day</h2>
-                    <blockquote className="quote">“{quote}”</blockquote>
+                    <h1 style={{ textAlign: 'center', color: '#a01a4f', fontSize: '2rem' }}>Комплімент дня</h1>
+                    <blockquote className="quote">“З тобою навіть мовчання звучить красиво.”</blockquote>
                 </section>
-
-                <section className="meme-section">
-                    <h2>Meme of the Day</h2>
-                    {meme ? <img src={meme.url} alt={meme.title} className="meme-img"/> : <div>Loading...</div>}
+                <section>
+                    <Drawing />
                 </section>
             </div>
         </Wrapper>

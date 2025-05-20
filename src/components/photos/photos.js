@@ -18,11 +18,12 @@ export const Photos = () => {
         setCurrentIndex((currentIndex - 1 + photos.length) % photos.length);
     };
 
-    useEffect(() => {
-        const timer = setInterval(() => next(), 10000);
-
-        return () => clearInterval(timer);
-    }, []);
+    // TODO: fix auto switch photos
+    // useEffect(() => {
+    //     const timer = setInterval(() => next(), 10000);
+    //
+    //     return () => clearInterval(timer);
+    // }, []);
 
     return (
         <>
@@ -38,7 +39,6 @@ export const Photos = () => {
                         }
                     >
                         <img src={photo} alt={`Photo_${index}`} className='photo' />
-                        <div className='caption'>{`Photo_${index}`}</div>
                     </div>
                 ))}
 

@@ -1,10 +1,10 @@
 .home-container {
     /*font-family: Arial, sans-serif;*/
     color: #333;
-    padding: 0 20px;
+    padding: 0 0 40px 0;
 }
 
-.carousel-section, .quote-section, .meme-section {
+.quote-section {
     margin-bottom: 30px;
 }
 .carousel {
@@ -48,10 +48,21 @@
 .btn.upload { background: #ff85c0; color: #fff; }
 .btn.delete { background: #ff1e58; color: #fff; }
 .quote {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-style: italic;
     color: #6f2a4a;
     text-align: center;
+    background-color: rgba(244, 226, 234, 0.62);
+    margin: 50px auto 20px auto;
+    padding: 100px;
+    width: 800px;
+    height: 250px;
+    border-radius: 10px;
+
+    @media (max-width: 1140px) {
+        width: 100%;
+        height: auto;
+    }
 }
 .meme-img {
     display: block;
