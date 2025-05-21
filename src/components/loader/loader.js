@@ -1,4 +1,5 @@
 import './loader.css';
+import { useEffect } from 'react';
 
 export const Loader = ({ isLoading }) => {
     if (isLoading) {
@@ -19,4 +20,25 @@ export const Loader = ({ isLoading }) => {
     }
 
     return null;
+}
+
+export const PageLoader = () => {
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = "auto";
+        }
+    }, []);
+
+    return (
+        <>
+            <div className="page-loader-background"></div>
+            <div className="page-loader-container">
+                <div className="page-loader"></div>
+                <br/>
+                <span className="page-loader-text">Завантаження...</span>
+            </div>
+        </>
+    )
 }

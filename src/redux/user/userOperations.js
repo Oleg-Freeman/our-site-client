@@ -26,8 +26,8 @@ export const logout = createAsyncThunk(
     'users/logout',
     async (_, { rejectWithValue }) => {
         try {
-            const { data } = await httpClient.get('/users/logout');
-            console.log('LOGOUT DATA:', data);
+            await httpClient.get('/users/logout');
+            localStorage.removeItem('token');
         } catch (error) {
             if (error.response) {
                 const { data } = error.response;

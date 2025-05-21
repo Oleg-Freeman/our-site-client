@@ -1,16 +1,18 @@
-import { useState } from 'react';
-import { Wrapper, Menu, Countdown, Photos, Drawing } from '../../components';
-
 import './home.page.css'
+
+import { useState } from 'react';
+import { Wrapper, Menu, Countdown, Photos, Drawing, PageLoader } from '../../components';
+import { useSelector } from 'react-redux';
 
 export const HomePage = () => {
     const [quote, setQuote] = useState('');
-    const [meme, setMeme] = useState(null);
+    const isUserLoading = useSelector((state) => state.user.isLoading);
 
     return (
         <>
             <Menu/>
             <Wrapper>
+                {isUserLoading && <PageLoader />}
                 <div className="home-container">
                     <Countdown/>
                     <Photos />
