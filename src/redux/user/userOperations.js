@@ -4,9 +4,13 @@ import { httpClient, httpClientPublic } from '../../utils';
 
 export const login = createAsyncThunk(
     'users/login',
-    async (userData, { rejectWithValue }) => {
+    async ({ navigate, ...userData }, { rejectWithValue }) => {
         try {
             const { data } = await httpClientPublic.post('/users/login', userData);
+
+            if (data?.user && data?.token) {
+                navigate('/');
+            }
 
             return data;
         } catch (error) {

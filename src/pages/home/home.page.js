@@ -1,18 +1,20 @@
 import './home.page.css'
 
-import { useState } from 'react';
 import { Wrapper, Menu, Countdown, Photos, Drawing, PageLoader } from '../../components';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 export const HomePage = () => {
-    const [quote, setQuote] = useState('');
     const isUserLoading = useSelector((state) => state.user.isLoading);
+    const isPhotoLoading = useSelector(state => state.photos.isLoading);
+    const isLoading = isUserLoading || isPhotoLoading;
 
     return (
         <>
             <Menu/>
             <Wrapper>
-                {isUserLoading && <PageLoader />}
+                <ToastContainer />
+                {isLoading && <PageLoader />}
                 <div className="home-container">
                     <Countdown/>
                     <Photos />

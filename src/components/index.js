@@ -5,3 +5,5 @@ export * from './menu/menu';
 export * from './photos/photos';
 export * from './custom-input/custom-input'
 export * from './drawing/drawing'
+export * from './tooltip/tooltip'
+export * from './confirm-modal/confirm-modal'

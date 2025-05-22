@@ -45,6 +45,7 @@
     font-size: 18px;
     transition: 0.6s ease;
     border: none;
+    border-radius: 10px;
 }
 
 /* Position the "next" button to the right */
@@ -93,4 +94,27 @@
     to {
         opacity: 1;
     }
+}
+
+.btn-panel {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    gap: 5px;
+}
+
+.download-btn {
+    cursor: pointer;
+    padding: 7px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border: none;
+    border-radius: 10px;
+}
+.download-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }

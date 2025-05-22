@@ -1,10 +1,22 @@
 import './photos.css'
 import { useEffect, useState } from 'react';
-
-const photos = [];
+import { DeleteIcon, DownloadIcon, UploadIcon } from '../../utils';
+import { Tooltip } from '../tooltip/tooltip';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadPhotos, uploadPhotos, downloadPhotos, deletePhoto } from '../../redux/photos/photoOperations';
+import { ConfirmModal } from '../confirm-modal/confirm-modal';
 
 export const Photos = () => {
+    const dispatch = useDispatch();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+    const photos = useSelector(state => state.photos.photos);
+
+    useEffect(() => {
+        if (!photos) {
+            dispatch(loadPhotos());
+        }
+    }, [dispatch, photos]);
 
     // move to the next photo
     // if we are at the end, go to the first photo
@@ -18,18 +30,67 @@ export const Photos = () => {
         setCurrentIndex((currentIndex - 1 + photos.length) % photos.length);
     };
 
-    // TODO: fix auto switch photos
-    // useEffect(() => {
-    //     const timer = setInterval(() => next(), 10000);
-    //
-    //     return () => clearInterval(timer);
-    // }, []);
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const formData = new window.FormData();
+            formData.append('photo', file, file.name);
+            dispatch(uploadPhotos(formData));
+        }
+    }
+
+    const handlePhotoDownload = () => {
+        dispatch(downloadPhotos({ url: photos[currentIndex]?.url }));
+    }
+
+    const handleDeletePhotoClick = () => {
+        setConfirmDeleteOpen(true);
+    }
+
+    const handleConfirmPhotoDelete = () => {
+        dispatch(deletePhoto({ id: photos[currentIndex]?._id }));
+        setConfirmDeleteOpen(false);
+    }
+
+    const handleCancelPhotoDelete = () => {
+        setConfirmDeleteOpen(false);
+    }
 
     return (
         <>
-            {/* Render the carousel */}
+            <ConfirmModal
+                open={confirmDeleteOpen}
+                handleConfirm={handleConfirmPhotoDelete}
+                handleCancel={handleCancelPhotoDelete}
+            />
             <div className='slider-container'>
-                {photos.map((photo, index) => (
+                <div className="btn-panel">
+                    <Tooltip text="Скачати">
+                        <button className="download-btn" onClick={handlePhotoDownload}>
+                            <DownloadIcon />
+                        </button>
+                    </Tooltip>
+                    <Tooltip text="Додати">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            id="contained-button-file"
+                            onChange={handleFileChange}
+                        />
+                        <label htmlFor="contained-button-file">
+                            <div className="download-btn">
+                                <UploadIcon />
+                            </div>
+                        </label>
+                    </Tooltip>
+                    <Tooltip text="Видалити">
+                        <button className="download-btn" onClick={handleDeletePhotoClick}>
+                            <DeleteIcon />
+                        </button>
+                    </Tooltip>
+                </div>
+                {photos?.map((photo, index) => (
                     <div
                         key={index}
 
@@ -38,16 +99,12 @@ export const Photos = () => {
                             currentIndex === index ? 'fade' : 'slide fade'
                         }
                     >
-                        <img src={photo} alt={`Photo_${index}`} className='photo' />
+                        <img src={photo.url} alt={`Photo_${index}`} className='photo' />
                     </div>
                 ))}
-
-                {/* Previous button */}
                 <button onClick={prev} className='prev'>
                     &lt;
                 </button>
-
-                {/* Next button */}
                 <button onClick={next} className='next'>
                     &gt;
                 </button>
@@ -55,7 +112,7 @@ export const Photos = () => {
 
             {/* Render dots indicator */}
             <div className='dots'>
-                {photos.map((photo, index) => (
+                {photos?.map((photo, index) => (
                     <span
                         key={index}
                         // highlight the dot that corresponds to the current photo

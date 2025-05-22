@@ -16,7 +16,7 @@ export const LoginPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(login({ email, password })).then(() => navigate('/'));
+        dispatch(login({ email, password, navigate }));
     }
 
     return (
