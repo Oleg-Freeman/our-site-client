@@ -1,13 +1,20 @@
 import './menu.css'
 import { HomeIcon, ListsIcon, MessagesIcon, LogoutIcon } from '../../utils';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/user/userOperations';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMe, logout } from '../../redux/user/userOperations';
 import { useNavigate } from 'react-router';
-
+import { useEffect } from 'react';
 
 export const Menu = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const currentUser = useSelector(state => state.user.currentUser);
+
+    useEffect(() => {
+        if (!currentUser) {
+            dispatch(getMe())
+        }
+    }, [currentUser, dispatch]);
 
     const handleLogout = () => {
         dispatch(logout()).then(() => navigate('/login'));

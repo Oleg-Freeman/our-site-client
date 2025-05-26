@@ -44,3 +44,23 @@ export const logout = createAsyncThunk(
         }
     }
 )
+
+export const getMe = createAsyncThunk(
+    'users/me',
+    async (_, { rejectWithValue }) => {
+        try {
+            const { data } = await httpClient.get('/users/me');
+
+            return data;
+        } catch (error) {
+            if (error.response) {
+                const { data } = error.response;
+                toast.error(data.message);
+                return rejectWithValue(data.message);
+            } else {
+                toast.error(error.message);
+                return rejectWithValue(error.message);
+            }
+        }
+    }
+)

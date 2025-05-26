@@ -31,6 +31,8 @@ export const PageLoader = () => {
         }
     }, []);
 
+    // TODO: fix loader to be full height
+
     return (
         <>
             <div className="page-loader-background"></div>

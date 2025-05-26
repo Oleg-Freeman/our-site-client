@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logout } from './userOperations';
+import { login, logout, getMe } from './userOperations';
 
 const initialState = {
-    currentUser: {},
+    currentUser: null,
     isLoading: false,
 }
 
@@ -27,10 +27,20 @@ const userSlice = createSlice({
             })
             .addCase(logout.fulfilled, (state) => {
                 state.isLoading = false;
-                state.currentUser = {};
+                state.currentUser = null;
                 localStorage.removeItem('token');
             })
             .addCase(logout.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getMe.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getMe.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.currentUser = payload;
+            })
+            .addCase(getMe.rejected, (state) => {
                 state.isLoading = false;
             });
     }

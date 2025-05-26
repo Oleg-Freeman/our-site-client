@@ -3,25 +3,29 @@ import './home.page.css'
 import { Wrapper, Menu, Countdown, Photos, Drawing, PageLoader } from '../../components';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+import { Compliment } from '../../components/compliment/compliment';
 
 export const HomePage = () => {
     const isUserLoading = useSelector((state) => state.user.isLoading);
     const isPhotoLoading = useSelector(state => state.photos.isLoading);
-    const isLoading = isUserLoading || isPhotoLoading;
+    const isComplimentLoading = useSelector(state => state.compliments.isLoading);
+    const isLoading = isUserLoading || isPhotoLoading || isComplimentLoading;
+
+    if (isLoading) {
+        return (
+            <PageLoader />
+        )
+    }
 
     return (
         <>
             <Menu/>
             <Wrapper>
                 <ToastContainer />
-                {isLoading && <PageLoader />}
                 <div className="home-container">
                     <Countdown/>
                     <Photos />
-                    <section className="quote-section">
-                        <h1 className="header">Комплімент дня</h1>
-                        <blockquote className="quote">“З тобою навіть мовчання звучить красиво.”</blockquote>
-                    </section>
+                    <Compliment />
                     <section>
                         <Drawing />
                     </section>
