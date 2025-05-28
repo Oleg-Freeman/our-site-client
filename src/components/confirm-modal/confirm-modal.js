@@ -15,7 +15,7 @@ export const ConfirmModal = ({ open, handleConfirm, handleCancel }) => {
 
     if (open) {
         return (
-            <>
+            <div className="confirm-modal-container">
                 <div className="confirm-dimmer" />
                 <div className="confirm-modal">
                     <h2 className="confirm-header">Точно видалити?</h2>
@@ -24,7 +24,7 @@ export const ConfirmModal = ({ open, handleConfirm, handleCancel }) => {
                         <button className="cancel-button" onClick={handleCancel}>Ні</button>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 

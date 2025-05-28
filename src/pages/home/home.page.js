@@ -26,9 +26,7 @@ export const HomePage = () => {
                     <Countdown/>
                     <Photos />
                     <Compliment />
-                    <section>
-                        <Drawing />
-                    </section>
+                    <Drawing />
                 </div>
             </Wrapper>
         </>
