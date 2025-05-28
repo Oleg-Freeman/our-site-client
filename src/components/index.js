@@ -9,3 +9,4 @@ export * from './tooltip/tooltip'
 export * from './confirm-modal/confirm-modal';
 export * from './drawing-slider/drawing-slider';
 export * from './dropdown/dropdown'
+export * from './drawing-tools/drawing-tools'
