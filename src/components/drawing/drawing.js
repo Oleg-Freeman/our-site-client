@@ -5,11 +5,13 @@ import { Tooltip } from '../tooltip/tooltip';
 import { Dropdown } from '../dropdown/dropdown';
 import { ClearIcon, DeleteIcon, EraserIcon, PencilIcon, SaveIcon } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { createDrawing, getDrawingById, getDrawingShortList } from '../../redux/drawings/drawingOperations';
+import { createDrawing, getDrawingById, getDrawingShortList, deleteDrawing } from '../../redux/drawings/drawingOperations';
 import { DrawingSaveModal } from '../drawing-save-modal/drawing-save-modal';
 import { ButtonLoader } from '../button-loader/button-loader';
+import { Loader } from '../loader/loader';
 
 import './drawing.css';
+import { ConfirmModal } from '../confirm-modal/confirm-modal';
 
 const styles = {
     border: '0.0625rem solid #9c9c9c',
@@ -22,20 +24,28 @@ export const Drawing = () => {
     const [strokeWidth, setStrokeWidth] = useState(5);
     const [isEraseMode, setIsEraseMode] = useState(false);
     const [drawingSaveModalOpen, setDrawingSaveModalOpen] = useState(false);
+    const [drawingDeleteModalOpen, setDrawingDeleteModalOpen] = useState(false);
     const [drawingName, setDrawingName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [selectedDrawing, setSelectedDrawing] = useState('');
     const drawingShortList = useSelector(state => state.drawings.shortList);
-    const isLoading = useSelector(state => state.drawings.isLoading);
+    const isSaving = useSelector(state => state.drawings.isLoading);
     const currentDrawing = useSelector(state => state.drawings.currentDrawing);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (!drawingShortList) {
+            setIsLoading(true);
             dispatch(getDrawingShortList())
                 .then(({ payload = [] }) => {
                     if (payload?.length && payload[0]?._id) {
                         return dispatch(getDrawingById({ id: payload[0]._id }));
                     }
+
+                    return {};
                 })
+                .then(({ payload = {} }) => setSelectedDrawing(payload?._id || null))
+                .then(() => setIsLoading(false))
         }
 
     }, [drawingShortList, dispatch]);
@@ -44,7 +54,7 @@ export const Drawing = () => {
         if (currentDrawing) {
             canvasRef.current?.loadPaths(currentDrawing.layers || [])
         }
-    }, [currentDrawing, dispatch]);
+    }, [currentDrawing, isLoading, dispatch]);
 
     const handleEraserClick = () => {
         setIsEraseMode(true);
@@ -76,8 +86,36 @@ export const Drawing = () => {
             .catch(error => console.error(error));
     }
 
+    const handleDeleteCanvas = () => {
+        setDrawingDeleteModalOpen(false);
+        canvasRef.current?.clearCanvas();
+        setSelectedDrawing('');
+        dispatch(deleteDrawing({ id: currentDrawing?._id, name: currentDrawing?.name }));
+    }
+
     const handleDrawingNameChange = (event) => {
         setDrawingName(event.target.value);
+    }
+
+    const generateDropdownOptions = () => {
+        if (!drawingShortList?.length) {
+            return [];
+        }
+
+        return drawingShortList.map(drawing => ({
+            value: drawing._id,
+            label: drawing.name,
+        }));
+    }
+
+    const handleDrawingSelectChange = (value = '') => {
+        if (value?.length) {
+            setIsLoading(true);
+            canvasRef.current?.clearCanvas();
+            dispatch(getDrawingById({ id: value }))
+                .then(({ payload = {} }) => setSelectedDrawing(payload?._id || null))
+                .then(() => setIsLoading(false));
+        }
     }
 
     return (
@@ -90,6 +128,11 @@ export const Drawing = () => {
                     handleNameChange={handleDrawingNameChange}
                     handleCancel={() => setDrawingSaveModalOpen(false)}
                     handleConfirm={handleSaveCanvas}
+                />
+                <ConfirmModal
+                    open={drawingDeleteModalOpen}
+                    handleCancel={() => setDrawingDeleteModalOpen(false)}
+                    handleConfirm={handleDeleteCanvas}
                 />
                 <div className="drawing-tools-row">
                     <Tooltip text="Колір">
@@ -123,16 +166,18 @@ export const Drawing = () => {
                         <button
                             className="drawing-tools-button"
                             onClick={() => setDrawingSaveModalOpen(true)}
-                            disabled={isLoading}
+                            disabled={isSaving}
                         >
-                            {isLoading ? (<ButtonLoader />) : (<SaveIcon />)}
+                            {isSaving ? (<ButtonLoader />) : (<SaveIcon />)}
                         </button>
                     </Tooltip>
                     <Tooltip text="Видалити">
                         <button
                             className="drawing-tools-button"
+                            disabled={isSaving}
+                            onClick={() => setDrawingDeleteModalOpen(true)}
                         >
-                            <DeleteIcon />
+                            {isSaving ? (<ButtonLoader />) : (<DeleteIcon />)}
                         </button>
                     </Tooltip>
                 </div>
@@ -141,19 +186,25 @@ export const Drawing = () => {
                         <DrawingSlider value={strokeWidth} onChange={handleStrokeWidthChange} />
                     </Tooltip>
                     <Tooltip text="Збережені">
-                        <Dropdown />
+                        <Dropdown
+                            value={selectedDrawing}
+                            options={generateDropdownOptions()}
+                            handleChange={handleDrawingSelectChange}
+                        />
                     </Tooltip>
                 </div>
             </div>
             <div className="drawing-container">
-                <ReactSketchCanvas
-                    ref={canvasRef}
-                    style={styles}
-                    height="800"
-                    strokeWidth={strokeWidth}
-                    strokeColor={strokeColor}
-                    eraserWidth={strokeWidth}
-                />
+                {isLoading
+                    ? (<Loader isLoading={isLoading} /> )
+                : (<ReactSketchCanvas
+                        ref={canvasRef}
+                        style={styles}
+                        height="800"
+                        strokeWidth={strokeWidth || 5}
+                        strokeColor={strokeColor || '#000000'}
+                        eraserWidth={strokeWidth || 5}
+                    />)}
             </div>
         </section>
     )

@@ -5,11 +5,25 @@
     justify-content: center;
     margin: 0 auto;
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1512px) {
         width: calc(100% - 150px);
     }
     @media (max-width: 768px) {
         width: calc(100% - 50px);
+    }
+}
+#react-sketch-canvas__stroke-group-0 {
+    @media (max-width: 1024px) {
+        scale: 0.8;
+    }
+    @media (max-width: 768px) {
+        scale: 0.7;
+    }
+    @media (max-width: 650px) {
+        scale: 0.4;
+    }
+    @media (max-width: 375px) {
+        scale: 0.3;
     }
 }
 .drawing-tools-grid {

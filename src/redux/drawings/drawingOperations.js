@@ -7,8 +7,9 @@ export const createDrawing = createAsyncThunk(
     async (drawingData, { rejectWithValue }) => {
         try {
             if (!drawingData?.name) {
-                toast.error('Потрібно придумати назву малюнку');
-                return rejectWithValue('Потрібно придумати назву малюнку');
+                const message = 'Потрібно придумати назву малюнку';
+                toast.error(message);
+                return rejectWithValue(message);
             }
             const { data } = await httpClient.post('/drawings', drawingData);
 
@@ -70,9 +71,16 @@ export const getDrawingById = createAsyncThunk(
 
 export const deleteDrawing = createAsyncThunk(
     'drawings/delete',
-    async ({ id }, { rejectWithValue }) => {
+    async ({ id, name }, { rejectWithValue }) => {
         try {
+            if (!id) {
+                const message = 'Не знайдено малюнку для видалення';
+                toast.error(message);
+                return rejectWithValue(message);
+            }
             await httpClient.delete(`/drawings/${id}`);
+
+            toast.success(`"${name}" успішно видалено!`);
 
             return id;
         } catch (error) {
