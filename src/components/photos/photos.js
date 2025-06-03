@@ -18,6 +18,12 @@ export const Photos = () => {
         }
     }, [dispatch, photos]);
 
+    useEffect(() => {
+        if (photos?.length) {
+            setCurrentIndex(Math.floor(Math.random() * (photos.length + 1)) || 0);
+        }
+    }, [photos]);
+
     // move to the next photo
     // if we are at the end, go to the first photo
     const next = () => {
