@@ -1,0 +1,38 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+.modal-dimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.6;
+    z-index: 1;
+    overflow: hidden;
+}
+.modal {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: fit-content;
+    width: 400px;
+    height: 200px;
+    background-color: #1c1c28;
+    border: #434343 1px solid;
+    border-radius: 20px;
+    z-index: 2;
+}

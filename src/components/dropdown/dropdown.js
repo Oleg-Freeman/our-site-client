@@ -6,12 +6,12 @@ export const Dropdown = ({ options = [], value, handleChange }) => {
     };
 
     return (
-        <select value={value} onChange={handleSelectChange}>
+        <select className="dropdown" value={value} onChange={handleSelectChange}>
             {options?.length ? options.map((option) => (
-                <option key={option.value} value={option.value}>
+                <option className="dropdown-option" key={option.value} value={option.value}>
                     {option.label}
                 </option>
-            )) : (<option key="0" value=""></option>)}
+            )) : (<option className="dropdown-option" key="0" value="">Збережені Малюнки</option>)}
         </select>
     );
 }

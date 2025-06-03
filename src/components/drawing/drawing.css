@@ -12,9 +12,15 @@
         width: calc(100% - 50px);
     }
 }
-.drawing-tools {
+.drawing-tools-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.drawing-tools-row {
     display: flex;
     justify-content: center;
+    gap: 10px;
     gap: 10px;
     margin-bottom: 10px;
     max-height: 50px;

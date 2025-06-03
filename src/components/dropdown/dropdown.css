@@ -1,10 +1,17 @@
-.select {
+.dropdown {
     width: fit-content;
     cursor: pointer;
     position: relative;
     transition: 300ms;
-    color: white;
     overflow: hidden;
+    padding: 17px;
+    background-color: #fff;
+    border: 1px solid #C6CACE;
+    border-radius: 5px;
+    outline: none;
+}
+.dropdown-option {
+
 }
 
 .selected {
