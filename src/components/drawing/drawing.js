@@ -181,7 +181,7 @@ export const Drawing = () => {
                         </button>
                     </Tooltip>
                 </div>
-                <div className="drawing-tools-row">
+                <div className="drawing-tools-row secondary-tools-row">
                     <Tooltip text="Розмір">
                         <DrawingSlider value={strokeWidth} onChange={handleStrokeWidthChange} />
                     </Tooltip>
